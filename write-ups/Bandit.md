@@ -21,4 +21,7 @@ Bandit tells us the location of this password is in the file **spaces in this fi
 ### Level 3 -> Level 4
 Bandit tells us this file is hidden in the **inhere** directory. First thing I did was `cd inhere`, this changed our working directory to **inhere**. Next I did `ls -a`, the -a argument displays simply does not ignore files that start with `.`. The output is the file **...Hiding-From-You** along with the . and .. directories. Remember that Bandit told us we are looking for a file so we should do `cat "...Hiding-From-You"` because it is the only file. The output is: `2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ`. Onward!
 ### Level 4 -> Level 5
-Bandit tells us to look for the only human-readable file. We run `ls` and see about 10 files, we could simply run ``
+Bandit tells us to look for the only human-readable file. We run `ls` and see about 10 files, we could simply run `file` for each one of these manually but instead we are going to use a simple BASH script (for more info on BASH see [here](https://www.geeksforgeeks.org/bash-scripting-introduction-to-bash-and-bash-scripting/)). 
+#####
+    for x in $(seq 0 9); do file ./file0x$; done 
+Easy the output showed us that we want file 
