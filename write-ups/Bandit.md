@@ -5,7 +5,7 @@ We will be learning a lot about basic linux commands, if you do not have any exp
 ### What is SSH?
 Secure Shell Protocol (SSH), is a networking protocol that allows us to securely access and manage network devices and servers. Basically you can login and execute commands on the system without actually having to be there. If you want to learn more you can read this article by [CloudFlare](https://www.cloudflare.com/learning/access-management/what-is-ssh/)
 ## Lets Get Started:
-Bandit provides recommended commands and reading so make sure to follow along [here](https://overthewire.org/wargames/bandit/)
+Bandit provides a lot of relevent info, recommended commands, and resources so make sure to follow along [here](https://overthewire.org/wargames/bandit/).
 ### Level 0
 In order to start we first need to ssh into the CTF, open the command prompt and run: <br> 
 ######
@@ -21,7 +21,7 @@ Bandit tells us the location of this password is in the file **spaces in this fi
 ### Level 3 -> Level 4
 Bandit tells us this file is hidden in the **inhere** directory. First thing I did was `cd inhere`, this changed our working directory to **inhere**. Next I did `ls -a`, the -a argument displays simply does not ignore files that start with `.`. The output is the file **...Hiding-From-You** along with the . and .. directories. Remember that Bandit told us we are looking for a file so we should do `cat "...Hiding-From-You"` because it is the only file. The output is: `2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ`. Onward!
 ### Level 4 -> Level 5
-Bandit tells us to look for the only human-readable file. We run `ls` and see about 10 files, we could simply run `file` for each one of these manually but instead we are going to use a simple BASH script (for more info on BASH see [here](https://www.geeksforgeeks.org/bash-scripting-introduction-to-bash-and-bash-scripting/)). 
+Bandit tells us to look for the only human-readable file. We run `ls` and see about 10 files, we could simply run `file` for each one of these manually but instead we are going to use a simple BASH script to automate the process(for more info on BASH see [here](https://www.geeksforgeeks.org/bash-scripting-introduction-to-bash-and-bash-scripting/)). 
 #####
     for x in $(seq 0 9); do file ./file0x$; done 
 Easy the output showed us that we want file 
