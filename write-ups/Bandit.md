@@ -27,4 +27,18 @@ Bandit tells us to look for the only human-readable file. We run `ls` and see ab
 The output showed us that we want to look in -file07. We know this because it was the only file that is ASCII, which is human readable text. Running `cat <-file07` gives us our next password: `4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw`
 ### Level 5 -> Level 6
 Bandit tells us that the password for the next level is stored in a file with these attributes: `human-readable` `1033 bytes in size` `not executable`. I ran `ls` as soon as I logged in, then `cd inhere`, then `ls` again. The output shows us 18 directories, far to many to manually find our file. Instead we will use the find command, running `find -readable -size 1033c ! -executable`. We need to use the negations "!" to find non executable files. The output tells us that maybehere07/file02, after runnning `cat maybehere07/file02` we get our next password: `HWasnPhtq9AVKe0dmk45nxy20cvUa6EG`
-### Level6 -> Level 7
+### Level 6 -> Level 7
+Bandit tells us that the file we are searching for is located somewhere in the server, its has the attributes `owned by user bandit 7` `owned by group bandit 6` `33 bytes in size`. This is pretty easy, we will just use find again but with a couple extra things: `find / -user bandit7 -group bandit 6 -size 33c 2>/dev/null`. The output tells us to look at `/var/lib/dpkg/info/bandit7.password` which gives us the next password: `morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj`. <br> <br>
+Originally when I ran the find command I did not have the `2>/dev/null` addition, this caused the output to be mostly permission denied errors. I had to do a bit of research to figure out how to redirect the stderror, and eventually landed on the solution. `2` refers to the stderror (`0` and `1`, refers to stdin and stdout respectively) and `>/dev/null` simply redirects the output to `/dev/null`, a special file that discards any data that is written to it.
+### Level 7 -> Level 8
+### Level 8 -> Level 9
+### Level 10 -> Level 11
+### Level 11 -> Level 12
+### Level 12 -> Level 13
+### Level 13 -> Level 14
+### Level 14 -> Level 15
+### Level 15 -> Level 16
+### Level 16 -> Level 17
+### Level 17 -> Level 18
+### Level 18 -> Level 19
+### Level 19 -> Level 20
