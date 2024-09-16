@@ -3,15 +3,17 @@
 ## Brief Overview:
 We will be learning a lot about basic linux commands, if you do not have any experience in linux I **HIGHLY** recommend that you read the man page of every command we use. This CTF is can be accessed from any machine, as we are going to ssh into the server. If you want you can use [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html), but the command line will work just fine.
 ### What is SSH?
-Secure Shell Protocol (SSH), is a networking protocol that allows us to securely access and manage network devices and servers. Basically you can login and execute commands on the system without actually having to be there. If you want to learn more you can read this article by [CloudFlare](https://www.cloudflare.com/learning/access-management/what-is-ssh/)
+Secure Shell Protocol or Secure Shell (SSH), is a networking protocol that allows us to securely access and manage network devices and servers remotely. Basically you can login and execute commands on a system without actually having to be in front of it. If you want to learn more you can read this article by [CloudFlare](https://www.cloudflare.com/learning/access-management/what-is-ssh/)
 ## Lets Get Started:
-Bandit provides a lot of relevent info, recommended commands, and resources so make sure to follow along [here](https://overthewire.org/wargames/bandit/).
+>[!NOTE]
+>Bandit provides a lot of relevent info, recommended commands, and helpful resources so make sure to follow along [here](https://overthewire.org/wargames/bandit/).
 ### Level 0
 In order to start we first need to ssh into the CTF, open the command prompt and run: <br> 
 ######
     ssh bandit0@bandit.labs.overthewire.org -p 2220
 Bandit gave the password for this level: `bandit0` <br>
-#### As we continue 
+>[!NOTE]
+>As we continue you will need to ssh into each level individually, the username will change as we solve each level ex.bandit0 -> bandit1 
 ### Level 0 -> Level 1
 Once I loaded in to the game I ran the `ls` command to look for any useful files or directories. I saw the "readme" file, and did `cat readme` to print the contents to the screen. The output was: `ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If`. This is the password for the next level.
 ### Level 1 -> Level 2
@@ -31,9 +33,15 @@ Bandit tells us that the password for the next level is stored in a file with th
 Bandit tells us that the file we are searching for is located somewhere in the server, its has the attributes `owned by user bandit 7` `owned by group bandit 6` `33 bytes in size`. This is pretty easy, we will just use find again but with a couple extra things: `find / -user bandit7 -group bandit 6 -size 33c 2>/dev/null`. The output tells us to look at `/var/lib/dpkg/info/bandit7.password` which gives us the next password: `morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj`. <br> <br>
 Originally when I ran the find command I did not have the `2>/dev/null` addition, this caused the output to be mostly permission denied errors. I had to do a bit of research to figure out how to redirect the stderror, and eventually landed on the solution. `2` refers to the stderror (`0` and `1`, refers to stdin and stdout respectively) and `>/dev/null` simply redirects the output to `/dev/null`, a special file that discards any data that is written to it.
 ### Level 7 -> Level 8
+Bandit tells us that the password is stored in the file data.txt next to the word "millionth". Immediately after logging into the server I run `ls` to see if the data.txt file is in our directory. The file is here so lets run `cat data.txt | grep millionth`. The output gives us our next password: `dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc` along with our keyword "millionth". 
 ### Level 8 -> Level 9
+Bandit tells us that the password is stores in data.txt again, but this time in the only line that occurs once. I run `ls` to make sure we are in the same directory as our file, then run `sort data.txt | uniq -u` the output shows us the password: `4CKMh1JI91bUIZZPXDqGanal4xvAg0JM`
+### Level 9 -> Level 10
+Bandit tells us that the is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters. Like usual, we run `ls` to make sure we see our file. This level is pretty easy, we will run `strings data.txt | grep ^=`, this finds the printable strings in the file and then displays the ones starting with ^. We get several strings but only one looks like the rest of our passwords: `FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey`
 ### Level 10 -> Level 11
+Bandit tells us that the password is stored in the file data.txt, which contains base64 encoded data. This should be pretty easy, all we need to do is decode the file `base64 -d data.txt`. The next password is: `dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr`
 ### Level 11 -> Level 12
+Bandit tells us the password is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions. This is a super fun level so lets get into it. 
 ### Level 12 -> Level 13
 ### Level 13 -> Level 14
 ### Level 14 -> Level 15
